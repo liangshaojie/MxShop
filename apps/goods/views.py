@@ -1,4 +1,4 @@
-from .serializers import GoodsSerializer
+from .serializers import GoodsSerializer,CategorySerialize
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import mixins
@@ -8,6 +8,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 from .filters import GoodsFilter
+from .models import Goods, GoodsCategory
 
 
 
@@ -31,10 +32,12 @@ class GoodsListViewset(mixins.ListModelMixin,viewsets.GenericViewSet):
     search_fields = ('=name', 'goods_desc','goods_brief')
     ordering_fields = ('sold_num', 'add_time')
 
-
-    # def get_queryset(self):
-    #     queryset = Goods.objects.all()
-    #     price_min = self.request.query_params.get("price_min",0)
-    #     if price_min:
-    #         queryset = Goods.objects.filter(shop_price__gt = int(price_min))
-    #     return queryset
+class CategoryViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    """
+    list:
+        商品分类列表数据
+    retrieve:
+        获取商品分类详情
+    """
+    queryset = GoodsCategory.objects.filter(category_type=1)
+    serializer_class = CategorySerialize

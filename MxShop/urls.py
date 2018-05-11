@@ -18,13 +18,15 @@ import xadmin
 from MxShop.settings import MEDIA_ROOT
 from django.views.static import serve
 # from goods.views_base import GoodsListView
-from goods.views import GoodsListViewset
+from goods.views import GoodsListViewset,CategoryViewset
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 
 #配置goods的url
 router.register(r'goods', GoodsListViewset, base_name="goods")
+#配置category的url
+router.register(r'categorys', CategoryViewset, base_name="categorys")
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
