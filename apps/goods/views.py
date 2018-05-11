@@ -29,8 +29,8 @@ class GoodsListViewset(mixins.ListModelMixin,viewsets.GenericViewSet):
     pagination_class = GoodsPagination
     filter_backends = (DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
     filter_class = GoodsFilter
-    search_fields = ('=name', 'goods_desc','goods_brief')
-    ordering_fields = ('sold_num', 'add_time')
+    search_fields = ('name', 'goods_desc','goods_brief')
+    ordering_fields = ('sold_num', 'shop_price')
 
 class CategoryViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
